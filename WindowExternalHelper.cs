@@ -1,17 +1,23 @@
+using Resto.Front.Api;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Input;
+using System.Windows;
+using System;
+// To Syrve
 namespace WindowExternalHelper
 {
     /// <summary>
-    /// Класс для работы с окнами в iiko.
+    /// Class for Managing Windows.
     /// </summary>
     public static class Helpers
     {
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-        private const string AppProcessName = "iikoFront.Net";
-
         /// <summary>
-        /// Инициализация диспетчера WPF приложения.
+        /// Initializing the Dispatcher of a WPF Application.
         /// </summary>
         public static void InitializeUiDispatcher()
         {
@@ -34,7 +40,7 @@ namespace WindowExternalHelper
         }
 
         /// <summary>
-        /// Завершение работы диспетчера WPF приложения.
+        /// Shutting Down the Dispatcher of a WPF Application.
         /// </summary>
         public static void ShutdownUiDispatcher()
         {
@@ -45,7 +51,7 @@ namespace WindowExternalHelper
         }
 
         /// <summary>
-        /// Показ WPF окна с возможностью передачи аргументов и получения результата.
+        /// Displaying a WPF Window with the Ability to Pass Arguments and Receive a Result.
         /// </summary>
         public static TResult ShowWindow<TWindow, TRequest, TResult>(TRequest args)
             where TWindow : Window, new()
@@ -55,7 +61,7 @@ namespace WindowExternalHelper
             TResult result = null;
             try
             {
-                PluginContext.Log.Info($"ShowWindow: Открытие окна {typeof(TWindow).Name}");
+                PluginContext.Log.Info($"ShowWindow: Opening window {typeof(TWindow).Name}");
 
                 Task.Run(() =>
                 {
@@ -70,7 +76,7 @@ namespace WindowExternalHelper
                         }
                         else
                         {
-                            PluginContext.Log.Warn($"Метод AddExternalProperties не найден в {typeof(TWindow).Name}.");
+                            PluginContext.Log.Warn($"Method AddExternalProperties not found in {typeof(TWindow).Name}.");
                         }
 
                         window.ShowDialog();
@@ -82,14 +88,14 @@ namespace WindowExternalHelper
                         }
                         else
                         {
-                            PluginContext.Log.Warn($"Поле Result отсутствует в {typeof(TWindow).Name}.");
+                            PluginContext.Log.Warn($"Field Result is missing in {typeof(TWindow).Name}.");
                         }
                     });
                 }).Wait();
             }
             catch (Exception ex)
             {
-                PluginContext.Log.Error($"Ошибка при открытии окна {typeof(TWindow).Name}: {ex.Message}", ex);
+                PluginContext.Log.Error($"Error while opening window {typeof(TWindow).Name}: {ex.Message}", ex);
             }
 
             return result;
@@ -105,7 +111,7 @@ namespace WindowExternalHelper
         private const int MOUSEEVENTF_LEFTUP = 0x04;
 
         /// <summary>
-        /// Симуляция клика левой кнопкой мыши.
+        /// Simulating a Left Mouse Click.
         /// </summary>
         public static void LeftMouseClick(int xpos, int ypos)
         {
@@ -115,7 +121,7 @@ namespace WindowExternalHelper
         }
 
         /// <summary>
-        /// Обработка ввода с возможностью возврата результата.
+        /// Handling Input with the Ability to Return a Result.
         /// </summary>
         public static TResponse HandleInput<TResponse>(this Window window, Func<TResponse> func)
         {
@@ -130,7 +136,7 @@ namespace WindowExternalHelper
             }
             catch (Exception ex)
             {
-                PluginContext.Log.Error($"Ошибка при обработке ввода: {ex.Message}", ex);
+                PluginContext.Log.Error($"Error while handling input: {ex.Message}", ex);
             }
             finally
             {
@@ -141,7 +147,7 @@ namespace WindowExternalHelper
         }
 
         /// <summary>
-        /// Обработка ввода без возврата результата.
+        /// Handling Input Without Returning a Result.
         /// </summary>
         public static void HandleInput(this Window window, Action action)
         {
@@ -155,7 +161,7 @@ namespace WindowExternalHelper
             }
             catch (Exception ex)
             {
-                PluginContext.Log.Error($"Ошибка при обработке ввода: {ex.Message}", ex);
+                PluginContext.Log.Error($"Error while handling input: {ex.Message}", ex);
             }
             finally
             {
