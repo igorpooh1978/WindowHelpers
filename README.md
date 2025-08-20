@@ -1,10 +1,10 @@
 При инициализации плагина
-        ```
+```
         IikoWindows.Helpers.InitializeUiDispatcher();
 ```
 
 При выгрузке плагина
-   ```
+```
      IikoWindows.Helpers.ShutdownUiDispatcher();
 ```
 
