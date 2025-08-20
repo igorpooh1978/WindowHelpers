@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace IikoWindows;
 
@@ -22,7 +23,7 @@ public static class Helpers
 
     private const string iikoName = "iikoFront.Net";
     private const string syrveName = "syrveFront.Net";
-    private const IntPtr _frontHwnd;
+    private static IntPtr _frontHwnd;
 
     /// <summary>
     /// Инициализация визуального окна. Делается в конце метода инициализации вызываемого класса плагина
