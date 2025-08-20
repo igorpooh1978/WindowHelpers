@@ -2,10 +2,12 @@
         ```
         IikoWindows.Helpers.InitializeUiDispatcher();
 ```
+
 При выгрузке плагина
    ```
      IikoWindows.Helpers.ShutdownUiDispatcher();
 ```
+
 вызов блокирующего окна
 ```
  var window = IikoWindows.Helpers.ShowWindow<UserInfoWindow, UserInfoProperties, object>(
