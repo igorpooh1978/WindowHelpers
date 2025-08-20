@@ -5,6 +5,7 @@
         IikoWindows.Helpers.ShutdownUiDispatcher();
 
 вызов блокирующего окна
+```
  var window = IikoWindows.Helpers.ShowWindow<UserInfoWindow, UserInfoProperties, object>(
      new UserInfoProperties
      {
@@ -16,3 +17,4 @@
          Order = obj.order,
          DebugMode = _appSettings?.Value.DebugMode ?? false
      });
+```
